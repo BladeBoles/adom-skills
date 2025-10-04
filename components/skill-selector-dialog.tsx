@@ -1,18 +1,10 @@
 'use client';
 
-import { useState } from 'react';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
+import { useState, useRef, useEffect } from 'react';
 import { getAllSkillNames } from '@/lib/utils/combo-finder';
-import { Plus, Search } from 'lucide-react';
+import { Search, Plus } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { Card } from '@/components/ui/card';
 
 interface SkillSelectorDialogProps {
   selectedSkills: string[];
@@ -20,8 +12,9 @@ interface SkillSelectorDialogProps {
 }
 
 export function SkillSelectorDialog({ selectedSkills, onSkillAdd }: SkillSelectorDialogProps) {
-  const [open, setOpen] = useState(false);
   const [search, setSearch] = useState('');
+  const [isOpen, setIsOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const allSkills = getAllSkillNames();
   const availableSkills = allSkills.filter(
@@ -34,58 +27,63 @@ export function SkillSelectorDialog({ selectedSkills, onSkillAdd }: SkillSelecto
 
   const handleSkillClick = (skill: string) => {
     onSkillAdd(skill);
-    setOpen(false);
     setSearch('');
+    setIsOpen(false);
   };
 
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="sm">
-          <Plus className="h-4 w-4 mr-2" />
-          Add Skill
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="max-w-md">
-        <DialogHeader>
-          <DialogTitle>Select a Skill</DialogTitle>
-          <DialogDescription>
-            Choose a skill to add to your search criteria
-          </DialogDescription>
-        </DialogHeader>
+    <div ref={containerRef} className="relative">
+      <div className="relative">
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+        <Plus className="absolute right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+        <Input
+          placeholder="Add skills..."
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setIsOpen(true);
+          }}
+          onFocus={() => setIsOpen(true)}
+          className="pl-9 pr-9"
+        />
+      </div>
 
-        {/* Search Input */}
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-          <Input
-            placeholder="Search skills..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="pl-9"
-          />
-        </div>
-
-        {/* Skills List */}
-        <div className="max-h-[400px] overflow-y-auto">
-          <div className="grid gap-2">
-            {filteredSkills.length === 0 ? (
-              <p className="text-sm text-muted-foreground text-center py-8">
-                {search ? 'No skills found' : 'All skills selected'}
-              </p>
-            ) : (
-              filteredSkills.map((skill) => (
-                <button
-                  key={skill}
-                  onClick={() => handleSkillClick(skill)}
-                  className="text-left px-4 py-2 rounded-md hover:bg-muted transition-colors text-sm"
-                >
-                  {skill}
-                </button>
-              ))
-            )}
+      {/* Dropdown */}
+      {isOpen && (
+        <Card className="absolute top-full left-0 right-0 mt-2 p-2 z-50 shadow-lg">
+          <div className="max-h-[300px] overflow-y-auto">
+            <div className="grid gap-1">
+              {filteredSkills.length === 0 ? (
+                <p className="text-sm text-muted-foreground text-center py-8">
+                  {search ? 'No skills found' : 'All skills selected'}
+                </p>
+              ) : (
+                filteredSkills.map((skill) => (
+                  <button
+                    key={skill}
+                    onClick={() => handleSkillClick(skill)}
+                    className="text-left px-3 py-2 rounded-md hover:bg-muted transition-colors text-sm cursor-pointer"
+                  >
+                    {skill}
+                  </button>
+                ))
+              )}
+            </div>
           </div>
-        </div>
-      </DialogContent>
-    </Dialog>
+        </Card>
+      )}
+    </div>
   );
 }

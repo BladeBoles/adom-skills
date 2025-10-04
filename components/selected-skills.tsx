@@ -27,7 +27,7 @@ export function SelectedSkills({ skills, onRemove }: SelectedSkillsProps) {
           {skill}
           <button
             onClick={() => onRemove(skill)}
-            className="ml-1 rounded-sm opacity-70 hover:opacity-100 transition-opacity"
+            className="ml-1 rounded-sm opacity-70 hover:opacity-100 transition-opacity cursor-pointer"
           >
             <X className="h-3.5 w-3.5" />
           </button>

@@ -71,7 +71,7 @@ export function ComboResults({ combos, groupBy }: ComboResultsProps) {
           onClick={toggleAll}
           variant="ghost"
           size="sm"
-          className="text-xs"
+          className="text-xs cursor-pointer"
         >
           {openGroups.size === sortedGroups.length ? 'Collapse All' : 'Expand All'}
         </Button>
@@ -85,7 +85,7 @@ export function ComboResults({ combos, groupBy }: ComboResultsProps) {
             open={openGroups.has(groupKey)}
             onOpenChange={() => toggleGroup(groupKey)}
           >
-            <CollapsibleTrigger className="w-full">
+            <CollapsibleTrigger className="w-full cursor-pointer">
               <div className="flex items-center justify-between w-full px-4 py-3 rounded-md bg-muted hover:bg-muted/80 transition-colors">
                 <div className="flex items-center gap-2">
                   {openGroups.has(groupKey) ? (

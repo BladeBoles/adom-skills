@@ -14,6 +14,8 @@ import {
 import { SkillList } from '@/components/skill-list';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
+import { User, Shield } from 'lucide-react';
+import { Card } from '@/components/ui/card';
 
 export function CalculatorForm() {
   const router = useRouter();
@@ -46,41 +48,49 @@ export function CalculatorForm() {
   return (
     <div className="space-y-6">
       {/* Selectors */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <label className="text-sm font-medium">Race</label>
-          <Select value={selectedRace} onValueChange={updateRace}>
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {RACE_NAMES.map((race) => (
-                <SelectItem key={race} value={race}>
-                  {race}
-                </SelectItem>
-              ))}
-              <SelectItem value="No Race">No Race</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+      <Card className="p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <User className="h-4 w-4 text-green-600 dark:text-green-500" />
+              <label className="text-sm font-medium">Race</label>
+            </div>
+            <Select value={selectedRace} onValueChange={updateRace}>
+              <SelectTrigger className="cursor-pointer">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {RACE_NAMES.map((race) => (
+                  <SelectItem key={race} value={race} className="cursor-pointer">
+                    {race}
+                  </SelectItem>
+                ))}
+                <SelectItem value="No Race" className="cursor-pointer">No Race</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
 
-        <div className="space-y-2">
-          <label className="text-sm font-medium">Profession</label>
-          <Select value={selectedProfession} onValueChange={updateProfession}>
-            <SelectTrigger>
-              <SelectValue />
-            </SelectTrigger>
-            <SelectContent>
-              {PROFESSION_NAMES.map((profession) => (
-                <SelectItem key={profession} value={profession}>
-                  {profession}
-                </SelectItem>
-              ))}
-              <SelectItem value="No Profession">No Profession</SelectItem>
-            </SelectContent>
-          </Select>
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Shield className="h-4 w-4 text-blue-600 dark:text-blue-500" />
+              <label className="text-sm font-medium">Profession</label>
+            </div>
+            <Select value={selectedProfession} onValueChange={updateProfession}>
+              <SelectTrigger className="cursor-pointer">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {PROFESSION_NAMES.map((profession) => (
+                  <SelectItem key={profession} value={profession} className="cursor-pointer">
+                    {profession}
+                  </SelectItem>
+                ))}
+                <SelectItem value="No Profession" className="cursor-pointer">No Profession</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
-      </div>
+      </Card>
 
       <Separator />
 
@@ -91,7 +101,7 @@ export function CalculatorForm() {
       <Button
         onClick={transferToPicker}
         variant="secondary"
-        className="w-full"
+        className="w-full cursor-pointer"
       >
         Use these skills in Picker →
       </Button>

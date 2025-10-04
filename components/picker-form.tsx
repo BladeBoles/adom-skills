@@ -8,7 +8,6 @@ import { SelectedSkills } from '@/components/selected-skills';
 import { ComboResults } from '@/components/combo-results';
 import { Separator } from '@/components/ui/separator';
 import { Label } from '@/components/ui/label';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
 export function PickerForm() {
   const router = useRouter();
@@ -39,43 +38,50 @@ export function PickerForm() {
 
   return (
     <div className="space-y-6">
-      {/* Skill Selection */}
-      <div className="space-y-3">
-        <div className="flex items-center justify-between">
-          <h3 className="text-sm font-medium">Selected Skills</h3>
-          <SkillSelectorDialog
-            selectedSkills={selectedSkills}
-            onSkillAdd={addSkill}
-          />
-        </div>
-        <SelectedSkills skills={selectedSkills} onRemove={removeSkill} />
-      </div>
+      {/* Skill Selector - Always visible */}
+      <SkillSelectorDialog
+        selectedSkills={selectedSkills}
+        onSkillAdd={addSkill}
+      />
 
-      <Separator />
+      {/* Selected Skills */}
+      {selectedSkills.length > 0 && (
+        <>
+          <div className="space-y-3">
+            <h3 className="text-sm font-medium">Selected Skills</h3>
+            <SelectedSkills skills={selectedSkills} onRemove={removeSkill} />
+          </div>
+          <Separator />
+        </>
+      )}
 
       {/* Group By Toggle */}
       {selectedSkills.length > 0 && (
         <>
           <div className="space-y-3">
             <Label className="text-sm font-medium">Group by</Label>
-            <RadioGroup
-              value={groupBy}
-              onValueChange={(value) => setGroupBy(value as 'race' | 'profession')}
-              className="flex gap-4"
-            >
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="race" id="race" />
-                <Label htmlFor="race" className="font-normal cursor-pointer">
-                  Race
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <RadioGroupItem value="profession" id="profession" />
-                <Label htmlFor="profession" className="font-normal cursor-pointer">
-                  Profession
-                </Label>
-              </div>
-            </RadioGroup>
+            <div className="inline-flex rounded-lg border bg-muted p-1">
+              <button
+                onClick={() => setGroupBy('race')}
+                className={`px-4 py-2 text-sm font-medium rounded-md transition-all cursor-pointer ${
+                  groupBy === 'race'
+                    ? 'bg-background shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                Race
+              </button>
+              <button
+                onClick={() => setGroupBy('profession')}
+                className={`px-4 py-2 text-sm font-medium rounded-md transition-all cursor-pointer ${
+                  groupBy === 'profession'
+                    ? 'bg-background shadow-sm'
+                    : 'text-muted-foreground hover:text-foreground'
+                }`}
+              >
+                Profession
+              </button>
+            </div>
           </div>
 
           <Separator />
