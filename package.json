@@ -2,6 +2,13 @@
   "name": "adom-skills",
   "version": "0.1.0",
   "private": true,
+  "license": "MIT",
+  "author": "BladeBoles",
+  "description": "ADOM Skills Calculator - Find race and profession combinations for Ancient Domains of Mystery",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BladeBoles/adom-skills"
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
