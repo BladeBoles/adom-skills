@@ -48,15 +48,15 @@ export function CalculatorForm() {
   return (
     <div className="space-y-6">
       {/* Selectors */}
-      <Card className="p-6">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
+      <Card className="p-4 sm:p-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+          <div className="space-y-2 sm:space-y-3">
+            <div className="flex items-center gap-2 justify-center md:justify-start">
               <User className="h-4 w-4 text-green-600 dark:text-green-500" />
               <label className="text-sm font-medium">Race</label>
             </div>
             <Select value={selectedRace} onValueChange={updateRace}>
-              <SelectTrigger className="cursor-pointer">
+              <SelectTrigger className="cursor-pointer w-full">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -70,13 +70,13 @@ export function CalculatorForm() {
             </Select>
           </div>
 
-          <div className="space-y-3">
-            <div className="flex items-center gap-2">
+          <div className="space-y-2 sm:space-y-3">
+            <div className="flex items-center gap-2 justify-center md:justify-start">
               <Shield className="h-4 w-4 text-blue-600 dark:text-blue-500" />
               <label className="text-sm font-medium">Profession</label>
             </div>
             <Select value={selectedProfession} onValueChange={updateProfession}>
-              <SelectTrigger className="cursor-pointer">
+              <SelectTrigger className="cursor-pointer w-full">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
