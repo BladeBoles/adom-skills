@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Calculator, Search } from 'lucide-react';
+import { ThemeToggle } from '@/components/theme-toggle';
 
 export function NavHeader() {
   const pathname = usePathname();
@@ -19,8 +20,9 @@ export function NavHeader() {
             <h1 className="text-lg font-bold">ADOM Skills</h1>
           </div>
 
-          {/* Navigation */}
-          <nav className="inline-flex rounded-lg border bg-muted p-1">
+          {/* Navigation & Theme Toggle */}
+          <div className="flex items-center gap-3">
+            <nav className="inline-flex rounded-lg border bg-muted p-1">
             <Link
               href="/calculator"
               className={`flex items-center gap-2 px-4 py-2 text-sm font-medium rounded-md transition-all cursor-pointer ${
@@ -44,6 +46,8 @@ export function NavHeader() {
               Picker
             </Link>
           </nav>
+          <ThemeToggle />
+          </div>
         </div>
       </div>
     </header>
