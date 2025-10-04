@@ -72,6 +72,13 @@ export const SKILLS: Skill[] = [
     inGame: true,
   },
   {
+    name: 'Climbing',
+    description: 'Grants a chance to climb out of pits; prerequisite to enter the Rift',
+    races: [],
+    professions: [],
+    inGame: false,
+  },
+  {
     name: 'Concentration',
     description: 'Increases PP regeneration rate; improves spell learning process',
     races: ['Mist Elf'],
@@ -154,6 +161,13 @@ export const SKILLS: Skill[] = [
     inGame: false,
   },
   {
+    name: 'First Aid',
+    description: 'Can be used to restore recently lost HP',
+    races: [],
+    professions: [],
+    inGame: false,
+  },
+  {
     name: 'Fletchery',
     description: 'Allows creating ammunition using fletchery sets',
     races: [],
@@ -182,6 +196,13 @@ export const SKILLS: Skill[] = [
       'Grants a chance to generate and automatically identify gems from digging',
     races: ['Gnome', 'Troll'],
     professions: ['Elementalist', 'Merchant', 'Mindcrafter'],
+    inGame: false,
+  },
+  {
+    name: 'Haggling',
+    description: 'Can be used to haggle with shopkeepers',
+    races: [],
+    professions: [],
     inGame: false,
   },
   {
@@ -227,6 +248,14 @@ export const SKILLS: Skill[] = [
     races: [],
     professions: ['Duelist', 'Paladin'],
     inGame: true,
+  },
+  {
+    name: 'Listening',
+    description:
+      'Increases the chance of receiving audible messages (e.g. pool or river sounds)',
+    races: [],
+    professions: [],
+    inGame: false,
   },
   {
     name: 'Literacy',
